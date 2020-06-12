@@ -17,7 +17,7 @@ func main() {
 		if err != nil {
 			logrus.Fatalln(err)
 		}
-		logrus.Println("Downloaded: ", fileUrl)
+		//logrus.Println("Downloaded: ", fileUrl)
 	}
 
 }
@@ -25,8 +25,12 @@ func main() {
 
 func DownloadFile(filepath string, url string) error {
 	resp, err := http.Get(url)
-	if err != nil {
-		logrus.Fatalln(err)
+	if resp.StatusCode != 404 {
+		logrus.Println("Downloaded", url)
+	}
+
+	if err != nil || resp.StatusCode == 404{
+		return err
 	}
 
 	out, err := os.Create(filepath)
