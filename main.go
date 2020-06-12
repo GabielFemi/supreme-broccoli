@@ -1,19 +1,25 @@
 package main
 
 import (
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 	"os"
+	"path"
 )
 
 func main() {
-	fileUrl := "https://compilers.iecc.com/crenshaw/tutor2.txt"
-	err := DownloadFile("tutor2.txt", fileUrl)
-	if err != nil {
-		logrus.Fatalln(err)
+	for i := 0; i >= 0; i++{
+		fileUrl := fmt.Sprintf("https://compilers.iecc.com/crenshaw/tutor%d.txt", i)
+		filePath := path.Base(fileUrl)
+		err := DownloadFile(filePath, fileUrl)
+		if err != nil {
+			logrus.Fatalln(err)
+		}
+		logrus.Println("Downloaded: ", fileUrl)
 	}
-	logrus.Println("Downloaded: ", fileUrl)
+
 }
 
 
